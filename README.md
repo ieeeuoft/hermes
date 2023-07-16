@@ -3,3 +3,4 @@ Hermes is IEEE UofT's platform for automated deployments of our Makeuoft and New
 
 ## 2023-2024 DevOps Team
 - Luke Cheseldine
+- Samuel Liu
