@@ -1,0 +1,29 @@
+---
+- name: Set Up Docker
+  connection: local
+  hosts: all
+  remote_user: root
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Install docker engine
+      ansible.builtin.package:
+        name: docker-ce
+        state: present
+
+
+- name: Initialize Docker Swarm
+  connection: local
+  hosts: all
+  remote_user: root
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Initialize Docker Swarm
+      shell: docker swarm init --advertise-addr {{ ansible_default_ipv4.address }}
+      args:
+        executable: /bin/bash
+      ignore_errors: yes
+      register: swarm_init_result
+      changed_when: "'Error' not in swarm_init_result.stderr"
+
