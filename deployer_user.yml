@@ -1,0 +1,29 @@
+---
+- name: Create deployer user
+  connection: local
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Create Deployer User
+      user:
+        name: makeuoft-deployer
+        password:
+
+- name: Generate password
+  hosts: 159.203.31.138
+  connection: local
+  remote_user: root
+  tasks:
+    - name: Generate a random password
+      set_fact:
+        random_password: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,punctuation length=32') }}"
+
+- name: Assign password to deployer user
+  hosts: 159.203.31.138
+  connection: local
+  remote_user: root
+  tasks:
+    - name: Assign password to new user
+      user:
+        name: makeuoft-deployer
+        password: "{{ random_password | password_hash('sha512') }}"
