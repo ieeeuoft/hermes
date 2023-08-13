@@ -1,0 +1,16 @@
+---
+- name: Create static folder
+  connection: local
+  gather_facts: false
+  hosts: all
+  tasks:
+
+
+
+
+- name: Create media file folder
+  connection: local
+  gather_facts: false
+  hosts: all
+  tasks:
+
